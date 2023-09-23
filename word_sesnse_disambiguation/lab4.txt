@@ -1,0 +1,105 @@
+from collections import Counter
+import math
+data ={
+'1':(['Put','coat','back','Chair','sat','down'],'furniture'),
+'2':(['Chair','made','timber','company'],'furniture'),
+'3':(['Chair','institute','best'],'position'),
+'4':(['Award','IT','Chair'],'position'),
+'5':
+(['Type','different','Chair','Award','fun','use'],'furniture'),
+}
+combined=data['1'][0]+data['2'][0]+data['3'][0]+data['4'][0]+data['5']
+[0]
+unique_values=list(set(combined))
+V=len(unique_values)
+fCount=0
+pCount=0
+for key,(words,label) in data.items():
+if label=='furniture':
+fCount+=1
+elif label=='position':
+pCount+=1
+p_f=fCount/len(data)
+p_p=pCount/len(data)
+furniture_counter=Counter()
+position_counter=Counter()
+test=['Award','Chair','IT','company']
+for words,category in data.values():
+if category=='furniture':
+furniture_counter.update(words)
+elif category=='position':
+position_counter.update(words)
+p_condf=[]
+p_condp=[]
+for word in test:
+furniture_freq=furniture_counter[word]
+p_condf.append((furniture_freq+1)/(fCount+V))
+for word in test:
+position_freq=position_counter[word]
+p_condp.append((position_freq+1)/(pCount+V))
+score_f=0
+for i in p_condf:
+score_f+=(math.log(p_f,10)+math.log(i,10))
+#print("furniture",score_f)
+score_p=0
+for i in p_condp:
+score_p+=(math.log(p_p,10)+math.log(i,10))
+#print("position",score_p)
+if score_f>score_p:
+print("Sense is furniture")
+
+elif score_f<score_p:
+print("Sense is position")
+Sense is furniture
+from collections import Counter
+import math
+data ={
+'1':(['Bass','eat','super'],'Fish'),
+'2':(['Bass','lunch','excellent'],'Fish'),
+'3':(['Bass','ate','like'],'Fish'),
+'4':(['Bass','play','music'],'music'),
+'5':(['Bass','interest','play'],'music'),
+}
+combined=data['1'][0]+data['2'][0]+data['3'][0]+data['4'][0]+data['5']
+[0]
+unique_values=list(set(combined))
+V=len(unique_values)
+fCount=0
+pCount=0
+for key,(words,label) in data.items():
+if label=='Fish':
+fCount+=1
+elif label=='music':
+pCount+=1
+p_f=fCount/len(data)
+p_p=pCount/len(data)
+furniture_counter=Counter()
+position_counter=Counter()
+test=['Bass','super','excellent','play']
+for words,category in data.values():
+if category=='Fish':
+furniture_counter.update(words)
+elif category=='music':
+position_counter.update(words)
+p_condf=[]
+p_condp=[]
+for word in test:
+furniture_freq=furniture_counter[word]
+p_condf.append((furniture_freq+1)/(fCount+V))
+for word in test:
+position_freq=position_counter[word]
+p_condp.append((position_freq+1)/(pCount+V))
+score_f=0
+for i in p_condf:
+score_f+=(math.log(p_f,10)+math.log(i,10))
+#print("furniture",score_f)
+score_p=0
+for i in p_condp:
+score_p+=(math.log(p_p,10)+math.log(i,10))
+
+#print("position",score_p)
+if score_f>score_p:
+print("Sense is Fish")
+elif score_f<score_p:
+print("Sense is music")
+Sense is Fish
