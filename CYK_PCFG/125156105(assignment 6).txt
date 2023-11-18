@@ -1,0 +1,34 @@
+CYK ALGORITHM:
+import nltk
+from nltk import PCFG, InsideChartParser
+grammar = PCFG.fromstring("""
+S -> NP VP [1.0]
+VP -> V NP [0.7] | VP PP [0.3]
+NP -> Det N [0.5] | NP PP [0.2] | 'John' [0.3]
+PP -> P NP [1.0]
+V -> 'saw' [0.2] | 'ate' [0.8]
+Det -> 'the' [0.6] | 'a' [0.4]
+N -> 'man' [0.5] | 'telescope' [0.5]
+P -> 'with' [0.4] | 'in' [0.6]
+""")
+# Define a sentence to parse
+sentence = "John saw a man with a telescope"
+# Tokenize the sentence
+tokens = sentence.split()
+# CYK parsing
+parser = InsideChartParser(grammar)
+for tree in parser.parse(tokens):
+print(tree)
+OUTPUT:
+(S
+(NP John)
+(VP
+(VP (V saw) (NP (Det a) (N man)))
+(PP (P with) (NP (Det a) (N telescope))))) (p=5.04e-05)
+(S
+(NP John)
+(VP
+(V saw)
+(NP
+(NP (Det a) (N man))
+(PP (P with) (NP (Det a) (N telescope)))))) (p=3.36e-05)
